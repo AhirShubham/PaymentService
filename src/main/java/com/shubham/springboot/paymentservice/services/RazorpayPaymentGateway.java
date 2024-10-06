@@ -14,24 +14,24 @@ import com.razorpay.RazorpayException;
 public class RazorpayPaymentGateway implements IPaymentGateway {
 
     @Autowired
-    RazorpayClient razorpayClient ;
+    RazorpayClient razorpayClient;
 
 
     @Override
-    public String getPaymentLink() {
+    public String getPaymentLink(String name,String email,String phoneNumber,String orderId) {
         try{
             JSONObject paymentLinkRequest = new JSONObject();
             paymentLinkRequest.put("amount",1000);
             paymentLinkRequest.put("currency","INR");
             paymentLinkRequest.put("accept_partial",true);
             paymentLinkRequest.put("first_min_partial_amount",100);
-            paymentLinkRequest.put("expire_by",1691097057);
-            paymentLinkRequest.put("reference_id","TS1989");
+            paymentLinkRequest.put("expire_by",1727245563);
+            paymentLinkRequest.put("reference_id",orderId);
             paymentLinkRequest.put("description","Payment for policy no #23456");
             JSONObject customer = new JSONObject();
-            customer.put("name","+919000090000");
-            customer.put("contact","Gaurav Kumar");
-            customer.put("email","gaurav.kumar@example.com");
+            customer.put("name",phoneNumber);
+            customer.put("contact",name);
+            customer.put("email",email);
             paymentLinkRequest.put("customer",customer);
             JSONObject notify = new JSONObject();
             notify.put("sms",true);

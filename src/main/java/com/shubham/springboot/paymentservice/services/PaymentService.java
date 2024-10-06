@@ -1,18 +1,19 @@
 package com.shubham.springboot.paymentservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentService implements IPaymentService {
 
     @Autowired
-    @Qualifier("razorpay")
-    private IPaymentGateway paymentGateway;
+
+    private PaymentGatewayChooserStrategy paymentGatewayChooserStrategy;
 
     @Override
-    public String getPaymentLink() {
-        return paymentGateway.getPaymentLink();
+    public String getPaymentLink(String name, String email, String phoneNumber, String orderId) {
+
+        IPaymentGateway paymentGateway = paymentGatewayChooserStrategy.getBestPaymentGateway();
+        return paymentGateway.getPaymentLink(name,email,phoneNumber,orderId);
     }
 }

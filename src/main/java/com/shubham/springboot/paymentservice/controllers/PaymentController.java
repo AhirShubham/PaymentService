@@ -16,6 +16,6 @@ public class PaymentController {
 
     @PostMapping
     public String getPaymentLink(@RequestBody InitializePaymentRequestDto request){
-        return null;
+       return paymentService.getPaymentLink(request.getName(),request.getEmail(),request.getPhoneNumber(),request.getOrderId());
     }
 }
